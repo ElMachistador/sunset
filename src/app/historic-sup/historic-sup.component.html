@@ -2,6 +2,6 @@
 
 <mat-list>
   <mat-list-item *ngFor="let flight of flights$ | async">
-    <p>{{flight.flightInfo.arrivalNumber}} / {{flight.flightInfo.departureNumber}}</p>
+    <p>{{flight.info.arrivalNumber}} / {{flight.info.departureNumber}}</p>
   </mat-list-item>
 </mat-list>

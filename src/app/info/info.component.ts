@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
-import { Airline, FormFlightInfo, FormFlightSpec } from '../models';
+import { Airline, Forminfo, Formspec } from '../models';
 
 import { Observable } from 'rxjs';
 
@@ -23,8 +23,9 @@ import { TitleService } from '../title.service';
 })
 export class InfoComponent implements OnInit {
   form = new FormGroup({
-    flightInfo: new FormFlightInfo(),
-    flightSpec: new FormFlightSpec()
+    info: new Forminfo(),
+    spec: new Formspec(),
+    done: new FormControl(false)
   })
   airline$?: Observable<Airline[]>
 
@@ -53,7 +54,7 @@ export class InfoComponent implements OnInit {
       const ref = doc(this.firestore, 'flights', flight)
       const snap = await getDoc(ref)
       const myFlight = snap.data()
-      myFlight!.flightInfo.date = myFlight!.flightInfo.date.toDate()
+      myFlight!.info.date = myFlight!.info.date.toDate()
       this.form.reset(myFlight)
     }
   }

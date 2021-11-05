@@ -6,7 +6,7 @@
 
   <form [formGroup]="form">
     <div class="infos">
-      <form formGroupName="flightInfo">
+      <form formGroupName="info">
         <mat-form-field>
           <mat-label>Date</mat-label>
           <input matInput formControlName="date" [matDatepicker]="picker">
@@ -56,8 +56,8 @@
       </form>
     </div>
 
-    <div class="flightSpec">
-      <form formGroupName="flightSpec">
+    <div class="spec">
+      <form formGroupName="spec">
         <mat-form-field>
           <mat-label>Pax At Arrival</mat-label>
           <input matInput formControlName="paxArrival" type="number" min="0" max="400">

@@ -14,6 +14,8 @@ import { Observable, of, combineLatest } from 'rxjs';
 
 import { Airline, Flight } from '../models';
 
+import { getDate, isSameDay } from 'date-fns';
+
 
 interface DoneFilter {
   iata: string,
@@ -21,9 +23,8 @@ interface DoneFilter {
   flightNumber: string
 }
 
-function hasDate(flight: Flight, filters: DoneFilter) {
-  if (!filters.date) return true
-  return flight.flightInfo.date.toDate() == filters.date.toString()
+function sameDate(flight: Flight, filters: DoneFilter) {
+  return isSameDay(flight.info.date.toDate(), filters.date)
 }
 
 
@@ -32,8 +33,8 @@ function filterAirlines(flights: Flight[], filters: DoneFilter,) {
   if (!filters.iata && !filters.date) return flights;
   return flights.filter(flight => {
     const hasIata = filters.iata ? flight.iata === filters.iata : true
-    const hasNumber = filters.flightNumber ? flight.flightInfo.arrivalNumber.toLocaleLowerCase().includes(filters.flightNumber.toLocaleLowerCase()) : true
-    return hasIata && hasNumber && hasDate(flight, filters)
+    const hasNumber = filters.flightNumber ? flight.info.arrivalNumber.toLocaleLowerCase().includes(filters.flightNumber.toLocaleLowerCase()) : true
+    return hasIata && hasNumber && sameDate(flight, filters)
   })
 }
 
@@ -57,7 +58,7 @@ export class HistoricComponent implements OnInit {
     private auth: Auth,
     private firestore: Firestore,
     private titleService: TitleService,
-    private route: Router
+    private router: Router
   ) {
     titleService.title = "Historic"
   }
@@ -81,7 +82,8 @@ export class HistoricComponent implements OnInit {
     if (!user) {
       return of([])
     } else {
-      const q = query(collection(this.firestore, 'dones'), where('assignedTo', '==', user.uid))
+      const ref = collection(this.firestore, 'flights')
+      const q = query(ref, where('assignedTo', '==', user.uid), where('done', '==', true))
       return collectionData<Flight>(q as any, { idField: 'id' })
     }
   }

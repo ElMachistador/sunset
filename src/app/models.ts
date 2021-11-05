@@ -14,30 +14,32 @@ export interface Airline {
   iata: string,
   oaci: string,
   logo: string
-  flightInfo: FlightInfo,
+  info: Info,
 }
 
 export interface Flight {
   assignedTo: string,
-  flightInfo: FlightInfo,
-  flightSpec: FlightSpec,
+  info: Info,
+  spec: Spec,
   iata: string,
   id: string,
-  airlineId: string
+  airlineId: string,
+  done: boolean
 }
 
 export interface Finalized {
   arrivalTiming: ArrivalTiming,
   assignedTo: string,
   departureTiming: DerpartureTiming,
-  flightInfo: FlightInfo,
-  flightSpec: FlightSpec,
+  info: Info,
+  spec: Spec,
   iata: string,
   user: string,
-  id: string
+  id: string,
+  done: boolean
 }
 
-export interface FlightInfo {
+export interface Info {
   date: any,
   arrivalNumber: string,
   departureNumber: string,
@@ -49,7 +51,7 @@ export interface FlightInfo {
   aircraftType: string
 }
 
-export interface FlightSpec {
+export interface Spec {
   paxArrival: number,
   paxDeparture: number,
   specArrival: string,
@@ -73,7 +75,7 @@ export interface DerpartureTiming {
   atd: Time,
 }
 
-export class FormFlightInfo extends FormGroup {
+export class Forminfo extends FormGroup {
   constructor() {
     super({
       date: new FormControl(new Date()),
@@ -89,7 +91,7 @@ export class FormFlightInfo extends FormGroup {
   }
 }
 
-export class FormFlightSpec extends FormGroup {
+export class Formspec extends FormGroup {
   constructor() {
     super({
       paxArrival: new FormControl(),

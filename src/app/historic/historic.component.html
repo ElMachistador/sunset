@@ -28,8 +28,8 @@
 <ng-container *ngFor="let done of filtered$ | async">
   <mat-nav-list>
     <mat-list-item>
-      <a matLine [routerLink]="['/turnaround/historic', done.id]">{{done.flightInfo.arrivalNumber}} /
-        {{done.flightInfo.departureNumber}}</a>
+      <a matLine [routerLink]="['/turnaround/historic', done.id]">{{done.info.arrivalNumber}} /
+        {{done.info.departureNumber}}</a>
       <button mat-icon-button (click)="remove(done.id)">
         <mat-icon>delete</mat-icon>
       </button>

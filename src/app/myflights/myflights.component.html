@@ -7,9 +7,9 @@
     <mat-list-item *ngFor="let flight of flights$ | async">
       <img mat-list-avatar [src]="(flight.airlineId | getAirline | async)?.logo">
       <a matLine [routerLink]="['/turnaround', flight.id]">
-        {{flight.flightInfo.arrivalNumber}} / {{flight.flightInfo.departureNumber}}
+        {{flight.info.arrivalNumber}} / {{flight.info.departureNumber}}
         <div>
-          sta: {{flight.flightInfo.sta}} / std: {{flight.flightInfo.std}}
+          sta: {{flight.info.sta}} / std: {{flight.info.std}}
         </div>
       </a>
       <a mat-icon-button [routerLink]="['/info',flight.iata, flight.id]">
@@ -26,16 +26,11 @@
 <footer>
   <h3>History of the day : </h3>
 
-  <ng-container *ngFor="let done of dones$ | async">
+  <mat-nav-list>
+    <mat-list-item *ngFor="let done of dones$ | async">
+      <a [routerLink]="['/turnaround', done.id]"> {{done.info.arrivalNumber}} /
+        {{done.info.departureNumber}}</a>
+    </mat-list-item>
+  </mat-nav-list>
 
-    <mat-list>
-      <mat-list-item>
-        <p>{{done.flightInfo.arrivalNumber}} / {{done.flightInfo.departureNumber}}</p>
-        <button mat-icon-button (click)="modify(done.id)">
-          <mat-icon>update</mat-icon>
-        </button>
-      </mat-list-item>
-    </mat-list>
-
-  </ng-container>
 </footer>

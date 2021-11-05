@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
 
@@ -30,7 +31,7 @@ export class MyflightsComponent implements OnInit {
   )
   airline$?: Observable<Airline[]>
 
-  dones$: Observable<Finalized[]> = authState(this.auth).pipe(
+  dones$: Observable<Flight[]> = authState(this.auth).pipe(
     switchMap(user => this.getDones(user))
   )
   constructor(
@@ -38,15 +39,16 @@ export class MyflightsComponent implements OnInit {
     private auth: Auth,
     private firestore: Firestore,
     private airLineService: AirlineService,
-    private titleService: TitleService
-  ) { 
+    private titleService: TitleService,
+    private route: Router
+  ) {
     titleService.title = "My Flights"
   }
 
   ngOnInit() {
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.titleService.title = ""
   }
 
@@ -59,7 +61,7 @@ export class MyflightsComponent implements OnInit {
       return of([])
     } else {
       const ref = collection(this.firestore, 'flights')
-      const q = query(ref, where('assignedTo', '==', user.uid))
+      const q = query(ref, where('assignedTo', '==', user.uid), where('done', '==', false))
       return collectionData<Flight>(q as any, { idField: 'id' })
     }
   }
@@ -74,21 +76,13 @@ export class MyflightsComponent implements OnInit {
 
 
   getDones(user: User | null) {
-    if (user) {
-      const ref = query(collection(this.firestore, 'dones'), where('user', '==', user.uid))
-      return collectionData<Finalized>(ref as any, { idField: 'id' })
-    } else {
+    if (!user) {
       return of([])
+    } else {
+      const ref = collection(this.firestore, 'flights')
+      const q = query(ref, where('assignedTo', '==', user.uid), where('done', '==', true))
+      return collectionData<Flight>(q as any, { idField: 'id' })
     }
-  }
-
-  async modify(id: string) {
-    const ref = doc(this.firestore, 'dones', id)
-    const snap = await getDoc(ref)
-    const flight = snap.data()
-    const ref2 = collection(this.firestore, 'flights')
-    await addDoc(ref2, flight)
-    deleteDoc(ref)
   }
 
 }

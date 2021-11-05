@@ -15,23 +15,23 @@
   <div class="info">
     <h2>Flight info:</h2>
     <p>
-      {{flight.flightInfo.arrivalNumber}} /
-      {{flight.flightInfo.departureNumber}}
+      {{flight.info.arrivalNumber}} /
+      {{flight.info.departureNumber}}
     </p>
 
     <p>
-      STA : {{flight.flightInfo.sta}} /
-      STD : {{flight.flightInfo.std}}
+      STA : {{flight.info.sta}} /
+      STD : {{flight.info.std}}
     </p>
 
     <p>
-      FROM : {{flight.flightInfo.from}} /
-      TO : {{flight.flightInfo.to}}
+      FROM : {{flight.info.from}} /
+      TO : {{flight.info.to}}
     </p>
 
     <p>
-      PAX ARR : {{flight.flightSpec.paxArrival}} /
-      PAX DEP : {{flight.flightSpec.paxDeparture}}
+      PAX ARR : {{flight.spec.paxArrival}} /
+      PAX DEP : {{flight.spec.paxDeparture}}
     </p>
   </div>
 
@@ -108,4 +108,5 @@
     </form>
   </div>
 </form>
-<button mat-flat-button color="primary" (click)="finalize()">Finalize</button>
+
+  <button mat-flat-button color="primary" (click)="finalize()">Finalize</button>
