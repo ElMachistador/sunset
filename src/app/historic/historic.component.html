@@ -1,0 +1,38 @@
+<h3>My flight Historic</h3>
+
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Filter by Airline</mat-label>
+    <mat-select formControlName="iata">
+      <mat-option>--select--</mat-option>
+      <mat-option *ngFor="let airline of airlines$ | async" [value]="airline.iata">
+        {{airline.iata}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Filter by Date</mat-label>
+    <input matInput formControlName="date" [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Filter by Number</mat-label>
+    <input matInput type="text" formControlName="flightNumber">
+  </mat-form-field>
+  
+</form>
+
+<ng-container *ngFor="let done of filtered$ | async">
+  <mat-nav-list>
+    <mat-list-item>
+      <a matLine [routerLink]="['/turnaround/historic', done.id]">{{done.flightInfo.arrivalNumber}} /
+        {{done.flightInfo.departureNumber}}</a>
+      <button mat-icon-button (click)="remove(done.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-nav-list>
+</ng-container>

@@ -1,0 +1,16 @@
+<a mat-button routerLink="/create">Add Airline</a>
+
+<mat-nav-list *ngFor="let airline of airlines$ | async, let i = index">
+  <mat-list-item>
+    <img mat-list-avatar [src]="airline.logo">
+    <a matLine [routerLink]="['/info', airline.iata]">
+      <p>{{airline.name}}</p>
+    </a>
+    <a mat-icon-button [routerLink]="['/create', airline.id]">
+      <mat-icon>edit</mat-icon>
+    </a>
+    <button mat-icon-button (click)="remove(airline.id)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-nav-list>

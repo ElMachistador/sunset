@@ -1,0 +1,25 @@
+<button mat-icon-button (click)="back()"><mat-icon>arrow_back</mat-icon></button>
+
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Airline Name</mat-label>
+    <input matInput type="text" formControlName="name">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Airline Picture</mat-label>
+    <input matInput type="text" formControlName="image">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Logo</mat-label>
+    <input matInput type="text" formControlName="logo">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Code OACI</mat-label>
+    <input matInput type="text" formControlName="oaci">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Code IATA</mat-label>
+    <input matInput type="text" formControlName="iata">
+  </mat-form-field>
+  <button mat-flat-button (click)="addAirline()">Add</button>
+</form>

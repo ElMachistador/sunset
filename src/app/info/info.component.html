@@ -1,0 +1,85 @@
+<ng-container *ngFor="let airline of airline$ | async">
+  <button mat-icon-button (click)="back()"><mat-icon>arrow_back</mat-icon></button>
+  <header>
+    <img [src]="airline.image">
+  </header>
+
+  <form [formGroup]="form">
+    <div class="infos">
+      <form formGroupName="flightInfo">
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input matInput formControlName="date" [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Flight Arrival Number</mat-label>
+          <input matInput formControlName="arrivalNumber" type="text">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Flight Departure Number</mat-label>
+          <input matInput formControlName="departureNumber" type="text">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>From</mat-label>
+          <input matInput formControlName="from" type="text">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>To</mat-label>
+          <input matInput formControlName="to" type="text">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>STA</mat-label>
+          <input matInput formControlName="sta" type="time">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>STD</mat-label>
+          <input matInput formControlName="std" type="time">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Registration</mat-label>
+          <input matInput formControlName="registration" type="text">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Aircraft Type</mat-label>
+          <input matInput formControlName="aircraftType" type="text">
+        </mat-form-field>
+      </form>
+    </div>
+
+    <div class="flightSpec">
+      <form formGroupName="flightSpec">
+        <mat-form-field>
+          <mat-label>Pax At Arrival</mat-label>
+          <input matInput formControlName="paxArrival" type="number" min="0" max="400">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Pax At Departure</mat-label>
+          <input matInput formControlName="paxDeparture" type="number" min="0" max="400">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Specials Arrival</mat-label>
+          <input matInput formControlName="specArrival" type="number" min="0" max="400">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Specials Departure</mat-label>
+          <input matInput formControlName="specDeparture" type="number" min="0" max="400">
+        </mat-form-field>
+      </form>
+      <button mat-flat-button color="primary" (click)="addFlight(airline.iata)">Add</button>
+    </div>
+  </form>
+
+</ng-container>

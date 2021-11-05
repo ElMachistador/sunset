@@ -1,0 +1,49 @@
+:host{
+  display: block;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field{
+  margin-left: 16px;
+  max-width: 200px;
+}
+
+header{
+  text-align: center;
+}
+
+img{
+  max-width: 600px;
+}
+
+.master{
+  display: flex;
+  flex-direction: row;
+  margin: 32px;
+}
+
+.arrivalTiming{
+  margin: auto;
+}
+
+.departureTiming{
+  margin-right: auto;
+}
+
+.info{
+  margin: 16px;
+}
+
+button{
+  margin: 16px
+}
+
+@media only screen and (max-width: 800px){
+  img{
+    max-width: 200px;
+  }
+}

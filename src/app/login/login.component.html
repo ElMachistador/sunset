@@ -1,0 +1,22 @@
+<ng-container *ngIf="user$ | async as user; else notConnected">
+  <p>Congrats, logged as {{user.email}}</p>
+</ng-container>
+
+
+<ng-template #notConnected>
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label>email</mat-label>
+      <input matInput type="email" formControlName="email">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>password</mat-label>
+      <input matInput type="password" formControlName="password" minlength="6">
+    </mat-form-field>
+    <mat-checkbox formControlName="position">
+      <mat-label>Supervisor</mat-label>
+    </mat-checkbox>
+    <button mat-flat-button color="primary" (click)="signIn()">Sign In</button>
+    <button mat-flat-button color="primary" (click)="signUp()">Sign Up</button>
+  </form>
+</ng-template>

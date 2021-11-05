@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "sunset-a39bb": {
+      "hosting": {
+        "sunset": [
+          "sunset-a39bb"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "sunset-a39bb"
+  }
+}

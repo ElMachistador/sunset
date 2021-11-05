@@ -1,0 +1,41 @@
+<header>
+  <button mat-flat-button (click)="selectAirline()">Add Flight</button>
+</header>
+
+<main>
+  <mat-nav-list>
+    <mat-list-item *ngFor="let flight of flights$ | async">
+      <img mat-list-avatar [src]="(flight.airlineId | getAirline | async)?.logo">
+      <a matLine [routerLink]="['/turnaround', flight.id]">
+        {{flight.flightInfo.arrivalNumber}} / {{flight.flightInfo.departureNumber}}
+        <div>
+          sta: {{flight.flightInfo.sta}} / std: {{flight.flightInfo.std}}
+        </div>
+      </a>
+      <a mat-icon-button [routerLink]="['/info',flight.iata, flight.id]">
+        <mat-icon>edit</mat-icon>
+      </a>
+      <button mat-icon-button (click)="remove(flight.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-nav-list>
+</main>
+
+
+<footer>
+  <h3>History of the day : </h3>
+
+  <ng-container *ngFor="let done of dones$ | async">
+
+    <mat-list>
+      <mat-list-item>
+        <p>{{done.flightInfo.arrivalNumber}} / {{done.flightInfo.departureNumber}}</p>
+        <button mat-icon-button (click)="modify(done.id)">
+          <mat-icon>update</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+
+  </ng-container>
+</footer>
